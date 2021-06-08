@@ -77,7 +77,7 @@ public class HomePage {
 	        System.out.println("Timer ran " + ++l);
 	        client = new StartClient();
 			boolean notif =true;
-	     //   ;= client.checkForMessage(SenderId);
+	        client.checkForMessage(SenderId);
 			
 			System.out.println("start notif 2");
 			if(notif){
@@ -103,10 +103,10 @@ public class HomePage {
 		client = new StartClient();
 		initialize();
 		System.out.println("username in homepge: "+ SenderId);
-	//	timer = new Timer();
-	//    TimerTask task = new Helper();
+		timer = new Timer();
+	    TimerTask task = new Helper();
 	      
-	//    timer.schedule(task, 700, 800);
+	    timer.schedule(task, 700, 800);
 	    
 	}
 

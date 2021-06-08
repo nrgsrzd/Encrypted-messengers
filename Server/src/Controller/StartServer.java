@@ -224,7 +224,7 @@ public class StartServer {
 							}
 						}
 					}*/
-			/*		if(operation.equalsIgnoreCase("give notif")){
+					if(operation.equalsIgnoreCase("give notif")){
 						username = input.readLine();
 						System.out.println("start notif 1 Server");
 						communication = new Communication();
@@ -240,7 +240,7 @@ public class StartServer {
 							System.out.println("Server you don't have new message");
 							out.println("False");
 						}
-					}*/
+					}
 					if(operation.equalsIgnoreCase("setnotif")){
 						username = input.readLine();
 				//		System.out.println("start notif 1 Server");

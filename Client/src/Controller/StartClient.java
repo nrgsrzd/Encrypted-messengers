@@ -249,7 +249,7 @@ public class StartClient {
 		return false;
 		
 	}
-	/*public boolean checkForMessage(String id){
+	public boolean checkForMessage(String id){
 		try {
 		//	socket = new Socket("localhost", port);
 			out = new PrintWriter(socket.getOutputStream(), true);
@@ -304,7 +304,7 @@ public class StartClient {
 			e.printStackTrace();
 		}
 		return false;
-	}*/
+	}
 	public boolean checkForOnline(String id){
 		try {
 		//	socket = new Socket("localhost", port);
