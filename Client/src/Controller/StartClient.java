@@ -1,5 +1,6 @@
 package Controller;
 
+import java.awt.AWTException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,6 +11,9 @@ import java.net.UnknownHostException;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
+
+import GUI.HomePage;
+import GUI.WelcomePage;
 
 public class StartClient {
 	
@@ -22,106 +26,114 @@ public class StartClient {
 	String From[];
 	String[] temp;
 	int size;
+	String username;
 	static int counter=0;
+	WelcomePage welcomepage;
+//	static int counter
 	
-/*	public void ConnectClient(){
-		
+	public void ConnectClient(){
 		try {
 			socket = new Socket("localhost", port);
+			out = new PrintWriter(socket.getOutputStream(), true);
 			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			System.out.println("666");
-			String answer = input.readLine();
-			System.out.println("777");
-			JOptionPane.showMessageDialog(null, answer);
-			System.out.println("888");
+		//	String msg="";
+			
+			Thread t = new ClientListener();
+			t.start();
 			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
-			System.out.println(e);
+			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			System.out.println(e);
+			e.printStackTrace();
 		}
-	}*/
+	}
+	
+	class ClientListener extends Thread{
+		
+		@Override
+	    public void run() 
+	    {
+			while (true) 
+	        {
+				if(counter==0){
+					counter++;
+				//	welcomepage = new WelcomePage();
+					username=welcomepage.textFieldUserName.getText();
+					System.out.println("welcome!"+ username);
+				}
+				else{
+					try {
+						input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					String msg;
+					try {
+						msg = input.readLine();
+						if(msg.equals("True")){
+							HomePage h = new HomePage(username);
+							System.out.println("%%%%%%");
+							try {
+								h.displayTray();
+							} catch (AWTException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+			//	System.out.println("***********");
+	        }
+	    }
+	}
+	
 	public boolean sendUsernameToServer(String username){
-		if(counter==0){
-			try {
-				socket = new Socket("localhost", port);
-				out = new PrintWriter(socket.getOutputStream(), true);
-				input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				String msg="";
+		
+		try {
+			socket = new Socket("localhost", port);
+			out = new PrintWriter(socket.getOutputStream(), true);
+			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			String msg="";
 			//	while(true){
-				System.out.println("start client login 1");
-				out.println("verify"); //check for login or search
-				out.println(username);
-				String check = input.readLine();
-				if(check.equalsIgnoreCase("true")){
-					socket.setKeepAlive(true);
-			//		out.close();
-			//		input.close();
-					counter++;
-					
-					return true;
-				}
-				else{
-			//		out.close();
-			//		input.close();
-					counter++;
-					socket.setKeepAlive(true);
-					return false;
-				}
+			//	System.out.println("start client check user 1");
+			out.println("verify"); //check for login or search
+			//	System.out.println("start client check user 2");
+			out.println(username);
+			//	System.out.println("start client check user 3");
+			String check = input.readLine();
+			System.out.println("start client check user 4");
+			if(check.equalsIgnoreCase("true")){	
 				
-		//		socket.close();
-		//		System.exit(0);
-			} catch (UnknownHostException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return false;	
-		}
-		else{
-			try {
-			//	socket = new Socket("localhost", port);
-				out = new PrintWriter(socket.getOutputStream(), true);
-				input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				String msg="";
-			//	while(true){
-				System.out.println("start client check user 1");
-				out.println("verify"); //check for login or search
-				System.out.println("start client check user 2");
-				out.println(username);
-				System.out.println("start client check user 3");
-				String check = input.readLine();
-				System.out.println("start client check user 4");
-				if(check.equalsIgnoreCase("true")){					
 					
-					socket.setKeepAlive(true);
+				socket.setKeepAlive(true);
 			//		out.close();
 			//		input.close();
-					return true;
-				}
-				else{
-					socket.setKeepAlive(true);
+				return true;
+			}
+			else{
+				socket.setKeepAlive(true);
 				//	out.close();
 				//	input.close();
-					return false;
-				}
+				return false;
+			}
 				
 		//		socket.close();
 		//		System.exit(0);
-			} catch (UnknownHostException e) {
+		} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return false;	
+			e.printStackTrace();
 		}
-			
+		return false;	
 	}
 	public void sendMessageToServer(String sender, String receiver, String message){
 		try {
@@ -237,7 +249,7 @@ public class StartClient {
 		return false;
 		
 	}
-	public boolean checkForMessage(String id){
+	/*public boolean checkForMessage(String id){
 		try {
 		//	socket = new Socket("localhost", port);
 			out = new PrintWriter(socket.getOutputStream(), true);
@@ -274,6 +286,7 @@ public class StartClient {
 		//		}
 			}
 			else{
+				System.out.println("client you don't have new message");
 				socket.setKeepAlive(true);
 				return false;
 			}
@@ -291,7 +304,7 @@ public class StartClient {
 			e.printStackTrace();
 		}
 		return false;
-	}
+	}*/
 	public boolean checkForOnline(String id){
 		try {
 		//	socket = new Socket("localhost", port);

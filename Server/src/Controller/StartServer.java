@@ -26,7 +26,8 @@ public class StartServer {
 //    private	PrintWriter out;
 	
 //	private String codedMessage;
-	private String sender, receiver, message, username;
+	private String sender, receiver, message;
+	private static String username="";
 	private Vector<String[]> vec;
 	private String[] From, Data;
 	private ArrayList<String> connections = new ArrayList<String>();
@@ -96,6 +97,22 @@ public class StartServer {
 	        this.out = dos;
 	    }
 	  
+		public void checkNewMessage(String id){
+			Communication communication = new Communication();
+			System.out.println("start notif 2 Server");
+			boolean s = communication.checkMessage(username);
+			System.out.println("start notif 3 Server");
+			if(s){
+				System.out.println("have message");
+				System.out.println("username: "+ username);
+				out.println("True");
+			}
+			else{
+				System.out.println("Server you don't have new message");
+				out.println("False");
+			}
+		}
+		
 	    @Override
 	    public void run() 
 	    {
@@ -207,7 +224,7 @@ public class StartServer {
 							}
 						}
 					}*/
-					if(operation.equalsIgnoreCase("give notif")){
+			/*		if(operation.equalsIgnoreCase("give notif")){
 						username = input.readLine();
 						System.out.println("start notif 1 Server");
 						communication = new Communication();
@@ -215,12 +232,15 @@ public class StartServer {
 						boolean s = communication.checkMessage(username);
 						System.out.println("start notif 3 Server");
 						if(s){
+							System.out.println("have message");
+							System.out.println("username: "+ username);
 							out.println("True");
 						}
 						else{
+							System.out.println("Server you don't have new message");
 							out.println("False");
 						}
-					}
+					}*/
 					if(operation.equalsIgnoreCase("setnotif")){
 						username = input.readLine();
 				//		System.out.println("start notif 1 Server");
@@ -238,7 +258,7 @@ public class StartServer {
 				//		System.out.println("start notif 3 Server");
 					}
 					System.out.println("777");
-					
+			//		checkNewMessage(username);
 					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -249,10 +269,11 @@ public class StartServer {
 	    }
 	}
 	
+
 	
 	/****/
 	
-	public void Start(){
+/*	public void Start(){
 		try {
 			listener = new ServerSocket(port);
 			System.out.println("Server is running");
@@ -335,7 +356,7 @@ public class StartServer {
 		//			System.out.println("Data: "+ Data[0]);
 				//	out.println("#");
 					/**set hasseen = 1*/
-					communication.readMessage(username);
+	/*				communication.readMessage(username);
 					
 				}
 				if(operation.equalsIgnoreCase("check")){
@@ -362,7 +383,7 @@ public class StartServer {
 						}
 					}
 				}*/
-				if(operation.equalsIgnoreCase("give notif")){
+	/*			if(operation.equalsIgnoreCase("give notif")){
 					username = input.readLine();
 					System.out.println("start notif 1 Server");
 					communication = new Communication();
@@ -386,5 +407,5 @@ public class StartServer {
 			// TODO Auto-generated catch block
 			System.out.println(e);
 		}
-	}
+	}*/
 }
