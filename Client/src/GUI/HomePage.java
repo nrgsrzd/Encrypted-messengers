@@ -77,7 +77,7 @@ public class HomePage {
 	        System.out.println("Timer ran " + ++l);
 	        client = new StartClient();
 			boolean notif =true;
-	        client.checkForMessage(SenderId);
+	        notif = client.checkForMessage(SenderId);
 			
 			System.out.println("start notif 2");
 			if(notif){

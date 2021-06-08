@@ -212,7 +212,7 @@ public class StartServer {
 							}
 						}
 					}
-			/*		if(operation.equalsIgnoreCase("checkMessage")){
+					if(operation.equalsIgnoreCase("checkMessage")){
 
 						username = input.readLine();
 						for(int i =0; i<connections.size();i++){
@@ -223,7 +223,7 @@ public class StartServer {
 								out.println("False");
 							}
 						}
-					}*/
+					}
 					if(operation.equalsIgnoreCase("give notif")){
 						username = input.readLine();
 						System.out.println("start notif 1 Server");

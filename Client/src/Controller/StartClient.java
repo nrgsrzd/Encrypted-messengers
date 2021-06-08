@@ -266,24 +266,24 @@ public class StartClient {
 	//		socket.setKeepAlive(true);
 			if(bol.equalsIgnoreCase("True")){
 				//haveMessage
-			//	socket.setKeepAlive(true);
-			//	socket.close();
-			//	socket = new Socket("localhost", port);
-		//		System.out.println("have message");
-		//		out = new PrintWriter(socket.getOutputStream(), true);
-		//		input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				socket.setKeepAlive(true);
+				socket.close();
+				socket = new Socket("localhost", port);
+				System.out.println("have message");
+				out = new PrintWriter(socket.getOutputStream(), true);
+				input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				
-		//		out.println("give notif");
-		//		out.println(id);
-		//		bol = input.readLine(); //if bol is True it means user is online and have message
-		//		if(bol.equalsIgnoreCase("True")){
+				out.println("give notif");
+				out.println(id);
+				bol = input.readLine(); //if bol is True it means user is online and have message
+				if(bol.equalsIgnoreCase("True")){
 					socket.setKeepAlive(true);
 					return true;
-		//		}
-		//		else{
-		//			socket.setKeepAlive(true);
-		//			return false;
-		//		}
+				}
+				else{
+					socket.setKeepAlive(true);
+					return false;
+				}
 			}
 			else{
 				System.out.println("client you don't have new message");
